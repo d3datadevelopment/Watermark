@@ -2,12 +2,12 @@
   "name": "d3/watermark",
   "description": "Wasserzeichen",
   "type": "oxideshop-module",
-  "version": "3.0.0.0",
   "keywords": [
     "oxid",
     "modules",
     "eShop",
-    "d3"
+    "d3",
+    "watermark"
   ],
   "authors": [
     {
@@ -17,6 +17,9 @@
         "role": "Owner"
     }
   ],
+  "support": {
+    "email": "support@shopmodule.com"
+  },
   "homepage": "https://www.oxidmodule.com/",
   "license": [
     "proprietary"
@@ -28,6 +31,7 @@
     }
   },
   "require": {
+    "php": "7.1 - 7.2", "ext-ionCube-Loader": "*",
     "oxid-esales/oxideshop-metapackage-ce": "~6.0.2 || ~6.1.0",
     "d3/modcfg": "^5.1.1.800",
     "intervention/image": "^2.4"
