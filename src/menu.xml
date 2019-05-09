@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+<OX>
+    <OXMENU id="d3mxd3modules">
+        <MAINMENU id="d3mxwatermark">
+            <SUBMENU id="d3mxwatermark_settings" cl="d3_cfg_watermark" list="d3_cfg_watermark_list">
+                <TAB id="d3tbclwatermark_main" cl="d3_cfg_watermark_main" />
+                <TAB id="d3tbclwatermark_imagetypes" cl="d3_cfg_watermark_imagetypes" />
+                <TAB id="d3tbclwatermark_licence" cl="d3_cfg_watermark_licence" />
+            </SUBMENU>
+        </MAINMENU>
+    </OXMENU>
+</OX>
