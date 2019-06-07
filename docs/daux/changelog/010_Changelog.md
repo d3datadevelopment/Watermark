@@ -2,6 +2,10 @@
 title: Changelog
 ---
 
+## 3.1.0.0 - (2019-06-07)
+### Added
+- Command Line Script, um generierte Bilder zu löschen und/oder neu zu generieren
+
 ## 3.0.0.0 - (2019-05-08)
 
 **Minor version upgrade notice: there are some backward-incompatible changes to this release.**

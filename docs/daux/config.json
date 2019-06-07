@@ -1,6 +1,6 @@
 {
     "title": "<i class='fab fa-d3 d3fa-color-blue'></i> Wasserzeichen",
-    "moduleversion": "3.0.0.0",
+    "moduleversion": "3.1.0.0",
     "titledesc": "für den Oxid eShop",
     "author": "D³ Data Development",
     "moduledate": "07.05.2019",
@@ -33,6 +33,7 @@
     },
     "languages": {
         "installation": "Installation",
+        "manual": "Handbuch",
         "changelog": "Changelog",
         "support": "Support"
     },

@@ -38,7 +38,7 @@ $aModule = array(
         'en' => ''
     ),
     'thumbnail'   => 'picture.png',
-    'version'     => '3.0.0.0',
+    'version'     => '3.1.0.0',
     'author'      => 'D&sup3; Data Development (Inh.: Thomas Dartsch)',
     'email'       => 'support@shopmodule.com',
     'url'         => 'http://www.oxidmodule.com/',
@@ -77,6 +77,7 @@ $aModule = array(
         'd3/watermark/views/admin/de/d3_watermark_lang.php',
         'd3/watermark/views/admin/en/d3_watermark_lang.php',
         'd3/watermark/Setup/Events.php',
-        'd3/watermark/models/d3watermark.php'
+        'd3/watermark/Models/d3watermark.php',
+        'd3/watermark/Models/d3watermarkImageGenerator.php'
     ),
 );

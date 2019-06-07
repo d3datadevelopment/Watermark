@@ -24,6 +24,8 @@ use D3\ModCfg\Application\Model\Exception\d3ShopCompatibilityAdapterException;
 use D3\ModCfg\Application\Model\Log\d3log;
 use D3\ModCfg\Application\Model\Maintenance\d3clrtmp;
 use Doctrine\DBAL\DBALException;
+use GuzzleHttp\Client;
+use OxidEsales\Eshop\Application\Model\Article;
 use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
 use OxidEsales\Eshop\Core\Exception\DatabaseErrorException;
 use OxidEsales\Eshop\Core\Exception\StandardException as StandardException;

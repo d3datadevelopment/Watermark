@@ -42,16 +42,16 @@ class d3watermark_update extends d3install_updatebase
 
     public $sModName = 'Wasserzeichen';
 
-    public $sModVersion = '3.0.0.0';
+    public $sModVersion = '3.1.0.0';
 
-    public $sModRevision = '3000';
+    public $sModRevision = '3100';
 
-    public $sBaseConf = 'rT0v2==c0JiZkQzS0N5U3g1dFg2Q3JHSzhUejMwSnFIRFFUYU1WcVJobUlMRW82QndGVUw0SUd5L1Rvd
-3I4akprcTJkdGZ0MVVLV0N6NzlWRUN1T1Q5QjExV3VQSTh1bitoMnVzRmpKMHRmOWJmdEM4eUVob0tsQ
-VM4TkxReVIydGVJb0ZIRE5VTWVHUGtSeTRmMWhjWjEvWGxZQm1CMXMxSnZidGJYdUhMQ3lrS0llTlBZQ
-UgvVU1nYXFDeDkyQ0xiNFFkQWVRNzlIaENMU21FbmJmeWtGMUhESUx1MVNjQWQyQTFyd2xqazVJSWFYd
-3kvTU5qT1pQTzBCdkdpYkhzOFd2N1RjeWxrd1NEUVRpays0MVRiU3M5dXdHZW42RmVYS2NodVlacjZlM
-TVtVnY1VU5oSE0rVUFka1RxanI5cDNoeitzN3J2NWQ0NS83R0xBRWl6TWhaSFR3PT0=';
+    public $sBaseConf = 'vslv2==M2svYjMveTZIc21vVCs4TkcyMm04YW9lbmgrbjNrRzhMVndwRElPNEp5SFpKcjhtUmhLY1p4T
+jRHSkVrcWdNbmgyc1lXdi9OQVBNWm1OQVZETjZuTGV5aTFvM0NHSXlCVXJrUGlsT0JHWHFTeHBISEIzc
+FdGbjlXaDBvWENGUTQrb25SOHlDc05NTW1IckpCNkN0ejBWaDhpaDdvb01YZ0VheGhJa2JodFNVdy9iU
+1FOblM1SzJzTlNjV1pkcFRJbU9ZRVNsSWsreGg0TnZvSGh5ai9kQmtvZzdMWk0vVXVoYnBvekhDWTI0M
+ktBdWxDZXpUbVk1NGVYK1NrV000TjE2UDZtaERVS2U5SHFPNEdrYzVWb0VHK3I0TXVGTGRkbzhTOUNKY
+mhnYVVtUWhpbWVkeWFhZTNMQTdNQ2NETFVWSXBzTmNpSnFVMGZTUndZR2NTRHVBPT0=';
 
     public $sRequirements = '';
 
