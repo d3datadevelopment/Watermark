@@ -1,0 +1,211 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * This Software is the property of Data Development and is protected
+ * by copyright law - it is NOT Freeware.
+ *
+ * Any unauthorized use of this software without a valid license
+ * is a violation of the license agreement and will be prosecuted by
+ * civil and criminal law.
+ *
+ * http://www.shopmodule.com
+ *
+ * @copyright (C) D3 Data Development (Inh. Thomas Dartsch)
+ * @author    D3 Data Development - Daniel Seifert <support@shopmodule.com>
+ * @link      http://www.oxidmodule.com
+ */
+
+namespace D3\Watermark;
+
+use D3\ModCfg\Application\Model\Exception\d3_cfg_mod_exception;
+use D3\ModCfg\Application\Model\Exception\d3ShopCompatibilityAdapterException;
+use D3\ModCfg\Application\Model\Maintenance\d3clrtmp;
+use D3\Watermark\Models\d3watermarkImageGenerator;
+use Dariuszp\CliProgressBar;
+use Doctrine\DBAL\DBALException;
+use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
+use OxidEsales\Eshop\Core\Exception\DatabaseErrorException;
+use OxidEsales\Eshop\Core\Exception\StandardException;
+use OxidEsales\Eshop\Core\Module\Module;
+use splitbrain\phpcli\CLI;
+use splitbrain\phpcli\Options;
+
+$bootstrapFileName = getenv('ESHOP_BOOTSTRAP_PATH');
+if (!empty($bootstrapFileName)) {
+    $bootstrapFileName = realpath(trim(getenv('ESHOP_BOOTSTRAP_PATH')));
+} else {
+    $count = 0;
+    $bootstrapFileName = '../../../../../source/bootstrap.php';
+    $currentDirectory = __DIR__ . '/';
+    while ($count < 5) {
+        $count++;
+        if (file_exists($currentDirectory . $bootstrapFileName)) {
+            $bootstrapFileName = $currentDirectory . $bootstrapFileName;
+            break;
+        }
+        $bootstrapFileName = '../' . $bootstrapFileName;
+    }
+}
+
+if (!(file_exists($bootstrapFileName) && !is_dir($bootstrapFileName))) {
+    $items = [
+        "Unable to find eShop bootstrap.php file.",
+        "You can override the path by using ESHOP_BOOTSTRAP_PATH environment variable.",
+        "\n"
+    ];
+
+    $message = implode(" ", $items);
+
+    die($message);
+}
+
+require_once($bootstrapFileName);
+
+ini_set('error_reporting', E_ERROR);
+
+class d3watermark extends CLI
+{
+    // register options and arguments
+    protected function setup(Options $options)
+    {
+        $options->setHelp('Provides maintenance functions for article images');
+        $options->registerCommand('delete', 'delete generated object images');
+        $options->registerCommand('generate', 'call object images to start generation of not existing one');
+        $options->registerCommand('renew', 'renew object images');
+        $options->registerOption('version', 'print version', 'v');
+        $options->registerArgument('types', 'affected image types - possible types are: '.d3watermarkImageGenerator::ALL.', '.d3watermarkImageGenerator::PRODUCT.', '.d3watermarkImageGenerator::CATEGORY.', '.d3watermarkImageGenerator::MANUFACTURER.', '.d3watermarkImageGenerator::VENDOR.', '.d3watermarkImageGenerator::WRAPPING, false);
+    }
+
+    /**
+     * @param Options $options
+     *
+     * @throws DBALException
+     * @throws DatabaseConnectionException
+     * @throws DatabaseErrorException
+     * @throws StandardException
+     * @throws d3ShopCompatibilityAdapterException
+     * @throws d3_cfg_mod_exception
+     */
+    protected function main(Options $options)
+    {
+        if ($options->getOpt('version')) {
+            $oModule = oxNew(Module::class);
+            $oModule->load('d3_watermark');
+            $this->info($oModule->getModuleData()['version']);
+        }
+
+        switch ($options->getCmd()) {
+            case 'delete':
+                $this->startDeleting($options);
+                break;
+            case 'generate':
+                $this->startGenerating($options);
+                break;
+            case 'renew':
+                $this->startDeleting($options);
+                $this->startGenerating($options);
+                break;
+            default:
+                echo $options->help();
+        }
+    }
+
+    /**
+     * @param Options $options
+     *
+     * @throws DBALException
+     * @throws d3ShopCompatibilityAdapterException
+     * @throws d3_cfg_mod_exception
+     * @throws DatabaseConnectionException
+     * @throws DatabaseErrorException
+     * @throws StandardException
+     */
+    public function startDeleting(Options $options)
+    {
+        /** @var $oClrTmp d3clrtmp */
+        $oClrTmp = oxNew(d3clrtmp::class);
+        switch (trim(strtolower($options->getArgs()[0]))) {
+            case d3watermarkImageGenerator::PRODUCT:
+                $oClrTmp->clearGeneratedProductImgs();
+                $this->info('generated product images are deleted');
+                break;
+            case d3watermarkImageGenerator::CATEGORY:
+                $oClrTmp->clearGeneratedCategoryImgs();
+                $this->info('generated category images are deleted');
+                break;
+            case d3watermarkImageGenerator::MANUFACTURER:
+                $oClrTmp->clearGeneratedManufacturerImgs();
+                $this->info('generated manufacturer images are deleted');
+                break;
+            case d3watermarkImageGenerator::VENDOR:
+                $oClrTmp->clearGeneratedVendorImgs();
+                $this->info('generated vendor images are deleted');
+                break;
+            case d3watermarkImageGenerator::WRAPPING:
+                $oClrTmp->clearGeneratedWrappingImgs();
+                $this->info('generated wrapping images are deleted');
+                break;
+            case d3watermarkImageGenerator::ALL:
+                $oClrTmp->clearGeneratedAllImgs();
+                $this->info('all generated images are deleted');
+                break;
+            default:
+                $this->error('no valid image type specified, check argument "type"');
+        };
+    }
+
+    /**
+     * @param Options $options
+     *
+     * @throws DBALException
+     */
+    public function startGenerating(Options $options)
+    {
+        switch (trim(strtolower($options->getArgs()[0]))) {
+            case d3watermarkImageGenerator::PRODUCT:
+            case d3watermarkImageGenerator::CATEGORY:
+            case d3watermarkImageGenerator::MANUFACTURER:
+            case d3watermarkImageGenerator::VENDOR:
+            case d3watermarkImageGenerator::WRAPPING:
+            case d3watermarkImageGenerator::ALL:
+                $oWMImageGenerator = oxNew( d3watermarkImageGenerator::class, $options->getArgs()[0] );
+
+                $blBar = $this->canShowProgressBar( $options );
+
+                if ( $blBar ) {
+                    $bar = new CliProgressBar( $oWMImageGenerator->getImagesListCount(), 0, "processing:" );
+                    $bar->display();
+                }
+
+                for ( $i = 0; $i < $oWMImageGenerator->getImagesListCount(); $i ++ ) {
+                    if ( $blBar ) {
+                        $bar->progress( 1 );
+                    }
+                    $oWMImageGenerator->generateProductImagesRange( $i );
+                }
+                if ( $blBar ) {
+                    $bar->end();
+                }
+
+                break;
+            default:
+                $this->error( 'no valid image type specified, check argument "type"' );
+        }
+    }
+
+    public function canShowProgressBar(Options $options)
+    {
+        return in_array(
+            strtolower($options->getOpt('loglevel')),
+            [
+                '',
+                'info',
+                'debug'
+            ]
+        );
+    }
+}
+
+$cli = new d3watermark();
+$cli->run();
