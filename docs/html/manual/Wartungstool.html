@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="no-js" lang="de">
+<head>
+    <title>Wartungstool -  Wasserzeichen</title>
+        <meta name="description" content="">
+    <meta name="author" content="D³ Data Development">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="../themes/d3/img/favicon.png" type="image/x-icon">
+
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/d3/css/theme-blue.min.css' rel='stylesheet' type='text/css'><link href='../themes/d3/css/d3.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="../themes/d3/js/html5shiv-3.7.3.min.js"></script>
+    <![endif]-->
+</head>
+<body class=" ">
+<div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <button type="button" class="Button Collapsible__trigger">
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+        </button>
+
+        <a class="Brand" href="../index.html"><i class='fab fa-d3 d3fa-color-blue'></i> Wasserzeichen</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451">
+            <path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/>
+        </svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Suchen..." autocomplete="on"
+               results=25 autosave=text_search>
+    </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item Nav__item--active'><a href="../manual/Wartungstool.html">Wartungstool</a></li></ul>
+            
+
+
+            <div class="Links">
+                <hr/>
+                <a href="https://www.oxidmodule.com" target="_blank">Shop</a><br />
+                <a href="https://blog.oxidmodule.com" target="_blank">Blog</a><br />
+                <a href="https://faq.oxidmodule.com" target="_blank">FAQ</a><br />
+                <a href="https://docs.oxidmodule.com" target="_blank">Dokumentationen</a><br />
+                <a href="https://support.oxidmodule.com" target="_blank">D³ Support Center</a><br />
+                <a href="https://www.oxidmodule.com/kontakt" target="_blank">Kontakt</a><br />
+                <a href="https://www.oxidmodule.com/impressum" target="_blank">Impressum</a><br />
+                            </div>
+
+            
+                
+                        </div>
+    </aside>
+    <div class="Columns__right Columns__right--full">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../manual/Wartungstool.html">Wartungstool</a></h1>
+                <span class="ModifiedDate">
+                        07.06.2019        </span>
+                    </div>
+
+    <div class="s-content">
+        <p>Die generierten Bilder müssen nach dem Setzen der Wasserzeicheneinstellungen neu aufbereitet werden. Ebenso ist die Aufbereitung nötig, wenn neue Artikel in den Shop eingepflegt wurden. Bestehen schon frühere Artikelbilder, müssen diese vorab gelöscht werden.</p>
+<p>Das Löschen der Bilder kann direkt auf dem Server, im Adminbereich des Shops oder über das hier angesprochene Wartungstool erledigt werden.</p>
+<p>Die Neugenerierung passiert regulär dann, wen das jeweilige Bild zum ersten Mal angefordert wird. Dies passiert im Normalfall durch die Shopbesucher. Somit ist eigentlich keine separate Vorarbeit nötig.</p>
+<p>Da jedoch die Einarbeitung des Wasserzeichens etwas Leistung (und damit auch Zeit) benötigt, sollten die Bilder vorgeneriert werden, um die erstmalige Ladezeit des Shops nicht unnötig zu verlängern. Daher kann die Vorabgenerierung ebenfalls über das folgende Wartungstool ausgeführt wird.</p>
+<p>Das moduleigene Wartungstool rufen Sie bitte über die Konsole Ihres Servers auf.
+Führen Sie in der Konsole im Hauptverzeichnis Ihres Shops (oberhalb des <code>source</code>- und <code>vendor</code>-Verzeichnisses) diesen Befehl aus, um das Wartungstool zu starten:</p>
+<pre><code class="language-bash">./vendor/bin/d3watermark
+</code></pre>
+<p>Damit sehen Sie eine Übersicht über die verfügbaren Befehlsoptionen.</p>
+<p>Folgende Aktionen stehen Ihnen zur Verfügung:</p>
+<ul>
+<li>delete: Löschen der generierten Bilder</li>
+<li>generate: Neugenerieren der Bilder</li>
+<li>renew: Löschen <strong>und</strong> Neugenerieren der Bilder</li>
+</ul>
+<p>Diesen Aktionen ist noch die Angabe hinzuzufügen, welche Bilder damit bearbeitet werden sollen. Mögliche Optionen sind:</p>
+<ul>
+<li>product: alle Artikelbilder</li>
+<li>category: alle Kategoriebilder</li>
+<li>manufacturer: alle Markenbilder</li>
+<li>vendor: alle Lieferantenbilder</li>
+<li>wrapping: alle Verpackungsbilder</li>
+<li>all: alle Bilder der vorher genannten Objekte</li>
+</ul>
+<p>Zum Neugenerieren aller Bilder sieht der Aufruf dann beispielsweise so aus:</p>
+<pre><code class="language-bash">./vendor/bin/d3watermark renew all
+</code></pre>
+<blockquote class="alert alert-info">
+<i class='fas fa-info-circle'></i> <p> Beachten Sie, dass der Scriptaufruf mit dem Systembenutzer erfolgt, der die generierten Dateien auch löschen darf. Ändern Sie den Befehl bitte ansonsten entsprechend systemabhängig ab (<code>sudo -u www-data ./vendor/bin/d3watermark ...</code>). Beim Neugenerieren ist der verwendete Benutzer unrelevant.</p>
+</blockquote>
+<blockquote class="alert alert-info">
+<i class='fas fa-info-circle'></i> <p> Sollen diese Wartungsaufgaben automatisert (z.B. per Cronjob) ausgeführt werden, stehen Ihnen die Optionen <code>--no-color</code> und <code>--loglevel error</code> zur Verfügung, um unnötige Ausgaben zu vermeiden.</p>
+</blockquote>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../installation/Deinstallation/TMP-Ordner_leeren.html">Zurück</a></li>            <li class=Pager--next><a href="../support/Hilfe-und-Support.html">Weiter</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- JS -->
+<script src="../themes/d3/js/jquery-1.11.3.min.js"></script><script src="../themes/d3/js/highlight.pack.js"></script><script src="../themes/d3/js/daux.js"></script><script src="../themes/d3/js/fontawesome-all.js"></script>
+    <!-- Tipue Search -->
+    <script type="text/javascript" src="../tipuesearch/tipuesearch.js"></script>
+
+    <script>
+        window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+        $(function() {
+            tipuesearch({
+                'base_url': '../'
+            });
+        });
+    </script>
+
+</body>
+</html>
